@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const HomePage = ({ posts, users, push }) => {
   const gotoArticle = id => () => {
+    console.log(11111);
     push(`/article/${id}`);
   };
 
@@ -21,12 +22,8 @@ const HomePage = ({ posts, users, push }) => {
             let userName = users.find(el => el.id === userId).name;
             let text = title.length < 30 ? title : title.slice(0, 30) + '...';
             return (
-              <ListItem button key={id}>
-                <ListItemText
-                  primary={text}
-                  secondary={`Posted by: ${userName}`}
-                  onClick={gotoArticle(id)}
-                />
+              <ListItem button key={id} onClick={gotoArticle(id)}>
+                <ListItemText primary={text} secondary={`Posted by: ${userName}`} />
               </ListItem>
             );
           })}
