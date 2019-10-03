@@ -1,0 +1,14 @@
+export const FETCH_DATA_START = 'FETCH_DATA_START';
+export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
+export const FETCH_DATA_FAILURE = 'FETCH_DATA_FAILURE';
+
+export const OPEN_ARTICLE = 'OPEN_ARTICLE';
+export const CLOSE_ARTICLE = 'CLOSE_ARTICLE';
+
+export const FETCH_COMMENTS_START = 'FETCH_COMMENTS_START';
+export const FETCH_COMMENTS_SUCCESS = 'FETCH_COMMENTS_SUCCESS';
+export const FETCH_COMMENTS_FAILURE = 'FETCH_COMMENTS_FAILURE';
+
+export const POSTS = 'posts';
+export const COMMENTS = 'comments';
+export const USERS = 'users';
