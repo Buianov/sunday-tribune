@@ -129,8 +129,8 @@ class Article extends Component {
 const mapStateToProps = state => {
   return {
     text: state.article.text,
-    title: state.article.text,
-    author: state.article.text,
+    title: state.article.title,
+    author: state.article.author,
     comments: state.article.comments,
     posts: state.crud.posts,
     users: state.crud.users,
