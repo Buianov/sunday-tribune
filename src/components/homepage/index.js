@@ -10,7 +10,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const HomePage = ({ posts, users, push }) => {
   const gotoArticle = id => () => {
-    console.log(11111);
     push(`/article/${id}`);
   };
 
