@@ -48,6 +48,13 @@ const HomePage = ({ posts, users, push }) => {
     console.log(filteredArticles);
   };
 
+  const capitalize = str => {
+    return str
+      .split(' ')
+      .map(el => el.charAt(0).toUpperCase() + el.slice(1))
+      .join(' ');
+  };
+
   return (
     <>
       <div>
@@ -64,6 +71,7 @@ const HomePage = ({ posts, users, push }) => {
           {filteredArticles.slice(0, articlesCount).map(({ id, title, userId }) => {
             let userName = users.find(el => el.id === userId).name;
             let text = title.length < 30 ? title : title.slice(0, 30) + '...';
+            text = capitalize(text);
             return (
               <ListItem button key={id} onClick={gotoArticle(id)}>
                 <ListItemText primary={text} secondary={`Posted by: ${userName}`} />
