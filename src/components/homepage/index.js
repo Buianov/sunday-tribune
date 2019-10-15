@@ -6,6 +6,7 @@ import { push } from 'connected-react-router';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import {
   NewsContainer,
   NewsBlock,
@@ -14,7 +15,11 @@ import {
   NewsAuthor,
   NewsImage,
   Container,
+  ShowMoreBlock,
+  SearchBlock,
 } from './index.style';
+
+import SearchIcon from '@material-ui/icons/Search';
 
 const HomePage = ({ posts, users, push }) => {
   const blankFilter = {
@@ -61,41 +66,56 @@ const HomePage = ({ posts, users, push }) => {
       .join(' ');
   };
 
+  const getRndImage = id => {
+    let num = id % 6;
+
+    return `https://picsum.photos/seed/${num}/150`;
+  };
+
   return (
-    <Container>
-      <div>
-        <TextField
-          id="name"
-          label="Search by title..."
-          value={filter.name}
-          onChange={filterHandler}
-          margin="normal"
-        />
-      </div>
+    <>
       {users && filteredArticles && (
-        <NewsContainer>
-          {filteredArticles.slice(0, articlesCount).map(({ id, title, userId }) => {
-            let userName = users.find(el => el.id === userId).name;
-            return (
-              <NewsBlock key={id} onClick={gotoArticle(id)}>
-                <NewsTitle>{capitalize(title)}</NewsTitle>
-                <NewsAuthor>{`Posted by: ${userName}`}</NewsAuthor>
-                <NewsImage>
-                  <img
-                    src={`https://picsum.photos/150/?random=${Math.floor(Math.random() * 6 + 1)}`}
-                  />
-                </NewsImage>
-              </NewsBlock>
-            );
-          })}
+        <Container>
+          <SearchBlock>
+            <TextField
+              id="name"
+              value={filter.name}
+              onChange={filterHandler}
+              margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon style={{ fill: '#90A4AE' }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </SearchBlock>
+          <NewsContainer>
+            {filteredArticles.slice(0, articlesCount).map(({ id, title, userId }) => {
+              let userName = users.find(el => el.id === userId).name;
+              return (
+                <NewsBlock key={id}>
+                  <NewsTitle onClick={gotoArticle(id)}>{capitalize(title)}</NewsTitle>
+                  <NewsAuthor>{`Posted by: ${userName}`}</NewsAuthor>
+                  <NewsImage onClick={gotoArticle(id)}>
+                    <img src={getRndImage(id)} />
+                  </NewsImage>
+                </NewsBlock>
+              );
+            })}
+          </NewsContainer>
+
           {articlesCount < filteredArticles.length && (
-            <Button variant="contained" onClick={showMore}>
-              Show more...
-            </Button>
+            <ShowMoreBlock>
+              <Button variant="contained" onClick={showMore} fullWidth>
+                Show more...
+              </Button>
+            </ShowMoreBlock>
           )}
-        </NewsContainer>
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
 
