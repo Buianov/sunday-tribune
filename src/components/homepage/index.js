@@ -4,11 +4,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import {
+  NewsContainer,
+  NewsBlock,
+  HeaderNewsBlock,
+  NewsTitle,
+  NewsAuthor,
+  NewsImage,
+  Container,
+} from './index.style';
 
 const HomePage = ({ posts, users, push }) => {
   const blankFilter = {
@@ -56,26 +62,30 @@ const HomePage = ({ posts, users, push }) => {
   };
 
   return (
-    <>
+    <Container>
       <div>
         <TextField
           id="name"
-          label="Search..."
+          label="Search by title..."
           value={filter.name}
           onChange={filterHandler}
           margin="normal"
         />
       </div>
       {users && filteredArticles && (
-        <List>
+        <NewsContainer>
           {filteredArticles.slice(0, articlesCount).map(({ id, title, userId }) => {
             let userName = users.find(el => el.id === userId).name;
-            let text = title.length < 30 ? title : title.slice(0, 30) + '...';
-            text = capitalize(text);
             return (
-              <ListItem button key={id} onClick={gotoArticle(id)}>
-                <ListItemText primary={text} secondary={`Posted by: ${userName}`} />
-              </ListItem>
+              <NewsBlock key={id} onClick={gotoArticle(id)}>
+                <NewsTitle>{capitalize(title)}</NewsTitle>
+                <NewsAuthor>{`Posted by: ${userName}`}</NewsAuthor>
+                <NewsImage>
+                  <img
+                    src={`https://picsum.photos/150/?random=${Math.floor(Math.random() * 6 + 1)}`}
+                  />
+                </NewsImage>
+              </NewsBlock>
             );
           })}
           {articlesCount < filteredArticles.length && (
@@ -83,9 +93,9 @@ const HomePage = ({ posts, users, push }) => {
               Show more...
             </Button>
           )}
-        </List>
+        </NewsContainer>
       )}
-    </>
+    </Container>
   );
 };
 

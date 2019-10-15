@@ -1,4 +1,9 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadein = keyframes`
+  from { opacity: 0; }
+  to   { opacity: 1; }
+`;
 
 export const Content = styled.div`
   display: flex;
@@ -9,6 +14,7 @@ export const Content = styled.div`
   border-radius: 10px;
   width: 60vw;
   font-family: 'Grenze', serif;
+  animation: ${fadein} 2s;
 `;
 
 export const ContentHeader = styled.h2`

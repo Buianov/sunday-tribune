@@ -82,7 +82,7 @@ class Article extends Component {
     this.setState({
       loading: true,
     });
-    showComments(Number(match.params.id)).then(_ => {
+    showComments(Number(match.params.id)).then(() => {
       this.setState({ loading: false });
     });
   };
@@ -92,9 +92,9 @@ class Article extends Component {
     const { text, title, author, comments } = this.props;
 
     return (
-      <>
+      <Content>
         {text && author && (
-          <Content>
+          <>
             <ContentClose>
               <CloseIcon onClick={this.goHome} />
             </ContentClose>
@@ -119,9 +119,9 @@ class Article extends Component {
                   );
                 })}
             </CommentBlock>
-          </Content>
+          </>
         )}
-      </>
+      </Content>
     );
   }
 }
